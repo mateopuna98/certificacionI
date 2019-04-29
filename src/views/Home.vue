@@ -10,7 +10,9 @@
 
   <body>
     <div id="app" :style="gradient(active)">
+      <h1 style="color: #000000">{{textoContador()}}</h1>
       <ColorBox
+        id="colorBox"
         v-for="swatch in swatches"
         v-bind:key="swatch.id"
         @click.native="activate(swatch)"
@@ -24,7 +26,7 @@
 </template>
 
 <script>
-import ColorBox from "@/components/ColorBox.vue"
+import ColorBox from "@/components/ColorBox.vue";
 
 export default {
   name: "home",
@@ -33,47 +35,52 @@ export default {
     ColorBox
   },
 
-  data () {
+  data() {
     return {
+      contador: 0,
+      color: "#ffffff",
       active: "",
       swatches: [
-        { id: 0, emoji: '<img alt = "leonidas" src= "../assets/logo.png">', color: "#ff691f" },
-        { id: 1, emoji: "tiger", color: "#fab81e" },
-        { id: 2, emoji: "fish", color: "#7fdbb6" },
-        { id: 3, emoji: "frog", color: "#19cf86" },
-        { id: 4, emoji: "dolphin", color: "#91d2fa" },
-        { id: 5, emoji: "whale", color: "#1b95e0" },
-        { id: 6, emoji: "elephant", color: "#abb8c2" },
-        { id: 7, emoji: "octopus", color: "#e81c4f" },
-        { id: 8, emoji: "pig", color: "#f58ea8" },
-        { id: 9, emoji: "unicorn", color: "#981ceb" },
-        { id: 10, emoji: "rabbit", color: "#ffffff" },
-        { id: 11, emoji: "wolf", color: "#000000" }
+        { id: 0, color: "#ff691f" },
+        { id: 1, color: "#fab81e" },
+        { id: 2, color: "#7fdbb6" },
+        { id: 3, color: "#19cf86" },
+        { id: 4, color: "#91d2fa" },
+        { id: 5, color: "#1b95e0" },
+        { id: 6, color: "#abb8c2" },
+        { id: 7, color: "#e81c4f" },
+        { id: 8, color: "#f58ea8" },
+        { id: 9, color: "#981ceb" },
+        { id: 10, color: "#ffffff" },
+        { id: 11, color: "#000000" }
       ]
-    }
+    };
   },
   methods: {
-    // activate actives a swatch (emoji/color)
-    activate: function (swatch) {
-      this.active = swatch
+    textoContador() {
+      return this.contador == 1
+        ? "Cambiaste el color 1 vez"
+        : "Cambiaste el color " + this.contador + " veces ";
     },
-    // gradient returns a precomposed gradient
-    gradient: function (swatch) {
+    activate: function(swatch) {
+      this.active = swatch;
+      this.contador += 1;
+
+      return this.active.color;
+    },
+
+    gradient: function(swatch) {
+      this.color = swatch.color;
       return {
         background:
-          'linear-gradient(100deg, whitesmoke -100%, ' + swatch.color + ')'
-      }
+          "linear-gradient(100deg, whitesmoke -100%, " + swatch.color + ")",
+        color: swatch.color
+      };
     }
   },
-
-  mounted () {},
-  updated () {},
-  props: {
-    title: String
-  }
-}
+};
 </script>
-<style scoped>
+<style >
 :root {
   /* colors */
   --white: #ffffff;

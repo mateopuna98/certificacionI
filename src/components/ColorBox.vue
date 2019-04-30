@@ -1,7 +1,9 @@
 <template>
   <div class="grid-item">
     <div class="grid-cell--top" :style="effect(swatch)">
-      <span></span>
+      <span>
+
+      </span>
     </div>
     <div class="grid-cell--bottom" :style="corrected_color()">{{ swatch.color.toUpperCase() }}</div>
   </div>

@@ -6,7 +6,20 @@ import ColorBox from '/Users/Mariana/Desktop/Vue/primerparcial/src/components/Co
 describe('Home.vue', () => {
 
   let wrapper
-
+  let colors = [
+    "#ff691f" ,
+    "#fab81e" ,
+    "#7fdbb6" ,
+    "#19cf86" ,
+    "#91d2fa" ,
+    "#1b95e0" ,
+    "#abb8c2" ,
+    "#e81c4f" ,
+    "#f58ea8" ,
+    "#981ceb" ,
+    "#ffffff" ,
+    "#000000" 
+  ]
 
   beforeEach(function () {
     wrapper = shallowMount(home, {
@@ -23,9 +36,16 @@ describe('Home.vue', () => {
   })
 
   it('El fondo cambió al color del elemento clickeado', () => {
-    const colorBox = wrapper.find(ColorBox)
-    colorBox.trigger('click')
-    assert.equal(wrapper.vm.color, "#ff691f")
+    let colorBoxes = wrapper.findAll(ColorBox)
+    colorBoxes.at(0).trigger('click')
+    let cambioColor = true
+
+    for (var i = 0; i < 12; i++) {
+      colorBoxes.at(i).trigger('click')
+      if(wrapper.vm.color != colors[i]) {cambioColor = false}
+    }
+
+    assert.equal(cambioColor, true)
   })
 
   it('el contador funciona', () => {
@@ -38,20 +58,6 @@ describe('Home.vue', () => {
 
   it('el fondo no cambia a ningún color externo, sólo a los que existen', () => {
     var elColorEsta = false
-    var colors = [
-      "#ff691f" ,
-      "#fab81e" ,
-      "#7fdbb6" ,
-      "#19cf86" ,
-      "#91d2fa" ,
-      "#1b95e0" ,
-      "#abb8c2" ,
-      "#e81c4f" ,
-      "#f58ea8" ,
-      "#981ceb" ,
-      "#ffffff" ,
-      "#000000" 
-    ]
     const colorBox = wrapper.find(ColorBox)
     colorBox.trigger('click')
     elColorEsta = colors.includes(wrapper.vm.color) ? true : false

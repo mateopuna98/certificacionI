@@ -12,9 +12,9 @@
     <div id="app" :style="gradient(active)">
       <h1 style="color: #000000">{{textoContador()}}</h1>
       <ColorBox
-        id="colorBox"
+        id= "swatch.id"
         v-for="swatch in swatches"
-        v-bind:key="swatch.id"
+        :key="swatch.id"
         @click.native="activate(swatch)"
         :active="active"
         :swatch="swatch"
@@ -58,19 +58,19 @@ export default {
   },
   methods: {
     textoContador() {
-      return this.contador == 1
-        ? "Cambiaste el color 1 vez"
-        : "Cambiaste el color " + this.contador + " veces ";
+      return this.contador == 1 ?
+        "Cambiaste el color 1 vez"
+        : "Cambiaste el color " + this.contador + " veces "
     },
     activate: function(swatch) {
-      this.active = swatch;
-      this.contador += 1;
+      this.active = swatch
+      this.contador += 1
 
-      return this.active.color;
+      return this.active.color
     },
 
     gradient: function(swatch) {
-      this.color = swatch.color;
+      this.color = swatch.color
       return {
         background:
           "linear-gradient(100deg, whitesmoke -100%, " + swatch.color + ")",
